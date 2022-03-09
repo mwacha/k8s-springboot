@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet # kind = Tipo de objeto criado,nesse caso, um ReplicasSet
+metadata:
+  name: "springbootserver"
+  labels:
+    app: "springbootserver"
+spec:
+  selector:
+    matchLabels:
+      app: springbootserver
+  replicas: 2 # 2 replicas do pod que iremos subir
+  template:
+    metadata: # configurações do arquivo pod.yaml
+      labels:
+        app: "springbootserver"
+    spec: # especificação do pod
+      containers:
+        - name: springbootserver
+          image: "mwacha/hello-springboot:latest"

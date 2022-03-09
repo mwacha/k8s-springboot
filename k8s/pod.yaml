@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod # kind = Tipo de objeto criado,nesse caso, um POD
+metadata:
+  name: "springbootserver"
+  labels:
+    app: "springbootserver"
+spec: # especificação do pod
+  containers:
+    - name: springbootserver
+      image: "mwacha/hello-springboot:latest"

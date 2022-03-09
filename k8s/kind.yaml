@@ -1,0 +1,9 @@
+# Define como será criado o nosso cluster.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+
+nodes:
+- role: control-plane # Role é o papel que esse node vai ter. O control-plane  vai gerenciar o nosso kubernetes (como se fosse o master no k8s)
+- role: worker
+- role: worker
+- role: worker
