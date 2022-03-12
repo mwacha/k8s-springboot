@@ -13,7 +13,4 @@ spec:
       targetPort: 8080 #porta do container
       protocol: TCP
 
-# ClusterIP -> Ip interno do servidor
-# NodePort -> Consegue expor p/ fora através de uma porta p/ qualquer um dos nodes
-# LoadBalancer -> gera um IP p/ você acessar a aplicação de fora.
 
