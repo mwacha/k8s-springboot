@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "springbootserver-service"
+spec:
+  selector:  # vai filtrar e saber quais pods estão "pindurados" nesse serviço
+    app: springbootserver
+  #type: ClusterIP #tipo do service. São 4: ClusterIP, NodePort, LoadBalancer e ExternalName.
+  type: LoadBalancer
+  ports: # quais são as portas acessíveis para esse service.
+    - name: "springbootserver-service"
+      port: 80 # porta do service
+      targetPort: 8080 #porta do container
+      protocol: TCP
+
+# ClusterIP -> Ip interno do servidor
+# NodePort -> Consegue expor p/ fora através de uma porta p/ qualquer um dos nodes
+# LoadBalancer -> gera um IP p/ você acessar a aplicação de fora.
+
