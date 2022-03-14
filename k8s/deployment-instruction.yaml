@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment # kind = Tipo de objeto criado,nesse caso, um Deployment
+metadata:
+  name: "springbootserver"
+  labels:
+    app: "springbootserver"
+spec:
+  selector:
+    matchLabels:
+      app: springbootserver
+  replicas: 2 # 2 replicas do pod que iremos subir
+  template:
+    metadata: # configurações do arquivo pod.yaml
+      labels:
+        app: "springbootserver"
+    spec: # especificação do pod
+      containers:
+        - name: springbootserver
+          image: "mwacha/hello-springboot:v5"
+          # VARIAVEIS DE AMBIENTE - FORMA 1 SEM ConfigMap
+#          env: # Adiciona variável de ambiente. Configurada no application.yaml
+#            - name: NAME
+#              value: "Marcelo"
+#            - name: AGE
+#              value: "45"
+          # VARIAVEIS DE AMBIENTE - FORMA 2 COM ConfigMap E atributos com chave e valor
+          env:
+            - name: NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: springbootserver-env #name no arquivo configmap-env
+                  key: name
+            - name: AGE
+              valueFrom:
+                configMapKeyRef:
+                  name: springbootserver-env #name no arquivo configmap-env
+                  key: age
+          # VARIAVEIS DE AMBIENTE - FORMA 3 COM ConfigMap E TODOS os atributos (POREM NAO FUNCIONOU) PESQUISAR
+#          envFrom:
+#            - configMapRef:
+#                name: springbootserver-env

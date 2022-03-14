@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment # kind = Tipo de objeto criado,nesse caso, um Deployment
+kind: Deployment
 metadata:
   name: "springbootserver"
   labels:
@@ -8,12 +8,33 @@ spec:
   selector:
     matchLabels:
       app: springbootserver
-  replicas: 2 # 2 replicas do pod que iremos subir
+  replicas: 2
   template:
-    metadata: # configurações do arquivo pod.yaml
+    metadata:
       labels:
         app: "springbootserver"
-    spec: # especificação do pod
+    spec:
       containers:
         - name: springbootserver
-          image: "mwacha/hello-springboot:v2"
+          image: "mwacha/hello-springboot:v6.2"
+          env:
+            - name: NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: springbootserver-env
+                  key: name
+            - name: AGE
+              valueFrom:
+                configMapKeyRef:
+                  name: springbootserver-env
+                  key: age
+          volumeMounts: # monta o o volume config(declarado abaixo) dentro da aplicação
+            - mountPath: "/java/myfamily"
+              name: config
+      volumes:
+        - name: config
+          configMap:
+            name: configmap-family # nome do configmap-family
+            items:
+            - key: members # dados que estão no configmap-family
+              path: "family.txt"

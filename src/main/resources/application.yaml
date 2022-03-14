@@ -1,2 +1,6 @@
 server:
   port: 8080
+
+params:
+  name: ${NAME}
+  age: ${AGE}

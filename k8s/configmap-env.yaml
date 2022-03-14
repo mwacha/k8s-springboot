@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: springbootserver-env
+data:
+   name: "Marcelo"
+   age: "45"
