@@ -20,6 +20,17 @@ public class ExampleController {
     private final ParamProperties properties;
     private final ConfigMap configMap;
 
+    @GetMapping(path = "/secret")
+    public String getSecret() {
+
+        String user = properties.getUser();
+        String password = properties.getPassword();
+
+        String message = MessageFormat.format("<h1>User: {0}. Password: {1}</h1>", user, password);
+
+        return message;
+    }
+
     @GetMapping(path = "/myfamily")
     public String getFamily() {
 

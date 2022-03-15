@@ -16,18 +16,12 @@ spec:
     spec:
       containers:
         - name: springbootserver
-          image: "mwacha/hello-springboot:v6.2"
-          env:
-            - name: NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: springbootserver-env
-                  key: name
-            - name: AGE
-              valueFrom:
-                configMapKeyRef:
-                  name: springbootserver-env
-                  key: age
+          image: "mwacha/hello-springboot:v6.3"
+          envFrom:
+            - configMapRef:
+                name: springbootserver-env
+            - secretRef:
+                name: springbootserver-secret
           volumeMounts: # monta o o volume config(declarado abaixo) dentro da aplicação
             - mountPath: "/java/myfamily"
               name: config

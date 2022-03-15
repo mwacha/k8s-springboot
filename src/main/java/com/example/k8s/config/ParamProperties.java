@@ -12,4 +12,6 @@ import org.springframework.context.annotation.Configuration;
 public class ParamProperties {
     private String name;
     private String age;
+    private String user;
+    private String password;
 }
