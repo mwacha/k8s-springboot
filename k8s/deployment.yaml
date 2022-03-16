@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: springbootserver
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -16,7 +16,34 @@ spec:
     spec:
       containers:
         - name: springbootserver
-          image: "mwacha/hello-springboot:v6.3"
+          image: "mwacha/hello-springboot:v6.6"
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080 #porta do container
+            periodSeconds: 3 # a cada 5 segundos, vai fazer a verificação se a aplicação está pronta
+            failureThreshold: 1 # quandas vezes é necessário que o erro ocorra pra reiniciar o pod
+            initialDelaySeconds: 30 # Aguarda x segundos para começar a verificcar o periodSeconds
+
+          readinessProbe: # só começa quando o startupProbe ficar pronto
+            httpGet:
+              path: /healthz
+              port: 8080 #porta do container
+            periodSeconds: 3 # a cada 3 segundos, vai fazer a verificação se a aplicação está pronta
+            failureThreshold: 1 # quandas vezes é necessário que o erro ocorra pra reiniciar o pod
+           # initialDelaySeconds: 10 # Aguarda x segundos para começar a verificcar o periodSeconds
+
+
+          livenessProbe: # só começa quando o startupProbe ficar pronto
+            httpGet:
+              path: /healthz
+              port: 8080 #porta do container
+            periodSeconds: 5 # a cada 5 segundos, vai fazer a verificação
+            failureThreshold: 1 # quandas vezes é necessário que o erro ocorra pra reiniciar o pod
+            timeoutSeconds: 1 # tempo para completar a requisição
+            successThreshold: 1 # número de tentativas informando que o sistema está ok.
+            #initialDelaySeconds: 15
+
           envFrom:
             - configMapRef:
                 name: springbootserver-env
