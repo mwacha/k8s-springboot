@@ -35,7 +35,7 @@ public class ExampleController {
 
         var duration = Duration.between(startedAt, LocalDateTime.now());
 
-        if(duration.getSeconds() < 10 || duration.getSeconds() > 30) {
+        if(duration.getSeconds() < 10) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return MessageFormat.format("<h1>Duration: {0}</h1>", duration.getSeconds());
         }

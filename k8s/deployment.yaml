@@ -16,7 +16,17 @@ spec:
     spec:
       containers:
         - name: springbootserver
-          image: "mwacha/hello-springboot:v6.6"
+          image: "mwacha/hello-springboot:v6.8"
+
+          resources:
+            requests: # o quanto que o container que estamos trabalhando exige o mínimo p/ ele funcionar
+              cpu: "0.3"
+              memory: "512Mi"
+            limits: # até onde esse pod pode utilizar de recursos no nosso cluster
+              cpu: "1"
+              memory: "1Gi"
+
+
           startupProbe:
             httpGet:
               path: /healthz
