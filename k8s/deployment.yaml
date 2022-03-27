@@ -62,7 +62,13 @@ spec:
           volumeMounts: # monta o o volume config(declarado abaixo) dentro da aplicação
             - mountPath: "/java/myfamily"
               name: config
+            - mountPath: /java/pvc
+              name: springbootserver-pvc
+
       volumes:
+        - name: springbootserver-pvc
+          persistentVolumeClaim:
+            claimName: springbootserver-pvc #nome configurado no arquivo pvc.yaml
         - name: config
           configMap:
             name: configmap-family # nome do configmap-family

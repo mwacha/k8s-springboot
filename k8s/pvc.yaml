@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: springbootserver-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce #outros pods que estivem em outro node não irá conseguir acessar esse volume.
+  resources:
+    requests:
+      storage: 5Gi
